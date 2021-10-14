@@ -35,7 +35,7 @@ public class TradingStrategy {
     }
 
     public void addPriceAction(PriceEvent priceEvent, PriceActionList.TradeCriteria tradeCriteria) {
-        strategyData.computeIfAbsent(priceEvent.getSecurity(), k -> new TreeMap<Double, PriceActionList>()).computeIfAbsent(priceEvent.getPrice(), k->new PriceActionList()).addPriceAction(tradeCriteria);
+        strategyData.computeIfAbsent(priceEvent.getSecurity(), k -> new TreeMap<>()).computeIfAbsent(priceEvent.getPrice(), k->new PriceActionList()).addPriceAction(tradeCriteria);
     }
 
     public void removePriceAction(PriceEvent priceEvent, PriceActionList.TradeCriteria tradeCriteria) {
@@ -54,6 +54,8 @@ public class TradingStrategy {
      */
     public void listenTransaction(String security, double price) {
         Objects.requireNonNull(security, "price Event empty");
+        if(strategyData == null)
+            return ;
         TreeMap<Double, PriceActionList> securityData = strategyData.get(security);
         if(securityData == null)
             return;
@@ -64,7 +66,7 @@ public class TradingStrategy {
             return ;
 
         PriceActionList priceActionList = higherPriceEntry.getValue();
-        priceActionList.getTradeCriterias().stream().forEach(
+        priceActionList.getTradeCriterias().forEach(
                 tradeCriteria -> {
                     switch (tradeCriteria.getAction()) {
                         case BUY:

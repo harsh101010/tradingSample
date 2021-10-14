@@ -18,7 +18,7 @@ public class PriceListenerImpl implements PriceListener {
 
     @Override
     public void priceUpdate(String security, double price) {
-        System.out.println("price update" + security + " price :"+ price);
+        System.out.println("price update : " + security + " price :"+ price);
         tradingStrategy.listenTransaction(security, price);
     }
 }
