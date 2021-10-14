@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Domain class to represent price and ACTION (BUY or SELL)
+ * A <Trade Criteria> collection class to represent quantity and ACTION (BUY or SELL) collection
+ *
  */
-
 public class PriceActionList {
 
     public PriceActionList(){

@@ -13,6 +13,8 @@ import java.util.TreeMap;
  * <pre>
  * User Story: As a trader I want to be able to monitor stock prices such
  * that when they breach a trigger level orders can be executed automatically
+ *
+ * Developer Note: Only buy strategy is implemented in current version
  * </pre>
  */
 public class TradingStrategy {
@@ -45,6 +47,11 @@ public class TradingStrategy {
         }
     }
 
+    /**
+     * Listen to events , in case they match strategy criteria, trigger transaction using execution service
+     * @param security name of stock
+     * @param price price supplied in event
+     */
     public void listenTransaction(String security, double price) {
         Objects.requireNonNull(security, "price Event empty");
         TreeMap<Double, PriceActionList> securityData = strategyData.get(security);

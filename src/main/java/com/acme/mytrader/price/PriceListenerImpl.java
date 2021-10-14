@@ -3,13 +3,14 @@ package com.acme.mytrader.price;
 import com.acme.mytrader.domain.PriceEvent;
 import com.acme.mytrader.strategy.TradingStrategy;
 
+/**
+ * A priceListener implementation which is supplied with a trading strategy
+ * on an event of priceUpdate - the trading strategy is notified
+ *
+ * this class is just responsible for connecting event to strategy - single responsibility
+ */
 public class PriceListenerImpl implements PriceListener {
-    PriceEvent priceEvent = null;
     TradingStrategy tradingStrategy;
-    public PriceEvent getPriceEvent() {
-        return priceEvent;
-    }
-
 
     public PriceListenerImpl(TradingStrategy tradingStrategy) {
         this.tradingStrategy = tradingStrategy;
