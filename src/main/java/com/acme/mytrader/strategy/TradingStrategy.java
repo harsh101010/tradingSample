@@ -7,4 +7,8 @@ package com.acme.mytrader.strategy;
  * </pre>
  */
 public class TradingStrategy {
+    public void listenTransaction(String ibm, double v) {
+
+
+    }
 }
