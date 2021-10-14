@@ -1,3 +1,8 @@
+# Notes from implementor
+
+Trading strategy with BUY order strategy implemented. The TradingStrategy contains a Map collection which stores all BUY or SELL orders at specific price levels and quantity.
+In the current test, I have added a BUY order for 100 IBM stocks for price less than 55
+
 # Developer Programming Exercise
 
 ## User Story
