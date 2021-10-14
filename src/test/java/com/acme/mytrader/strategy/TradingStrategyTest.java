@@ -15,6 +15,12 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test two scenarios
+ *  1. when no strategy data is defined ( meaning buy IBM less than 55 ) - nothing happens
+ *  2. when strategy data is defined ( buy IBM less than 55) - then executiong service is called with buy order*
+ *
+ */
 public class TradingStrategyTest {
 
     // Dumb implementation for priceSource Interface
