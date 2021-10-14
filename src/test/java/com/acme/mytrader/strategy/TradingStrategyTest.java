@@ -1,5 +1,7 @@
 package com.acme.mytrader.strategy;
 
+import com.acme.mytrader.domain.PriceActionList;
+import com.acme.mytrader.domain.PriceEvent;
 import com.acme.mytrader.execution.ExecutionService;
 import com.acme.mytrader.price.PriceListener;
 import com.acme.mytrader.price.PriceListenerImpl;
@@ -54,4 +56,28 @@ public class TradingStrategyTest {
         verify(tradingStrategySpy).listenTransaction("IBM", 55);
         verify(executionService, never()).buy(anyString(), anyDouble(), anyInt());
     }
+
+    @Test
+    public void shouldBuyWhenBuyCriteriaEventIsTriggered(){
+        ExecutionService executionService = Mockito.mock(ExecutionService.class);
+        // given the trading strategy is not empty
+        TradingStrategy strategy = TradingStrategyFactory.createEmptyStrategy(executionService);
+        strategy.addPriceAction(new PriceEvent("IBM", 55.0d), new PriceActionList.TradeCriteria(100, PriceActionList.Action.BUY));
+        strategy.addPriceAction(new PriceEvent("IBM", 56.0d), new PriceActionList.TradeCriteria(50, PriceActionList.Action.BUY));
+        strategy.addPriceAction(new PriceEvent("IBM", 54.0d), new PriceActionList.TradeCriteria(20, PriceActionList.Action.BUY));
+        TradingStrategy tradingStrategySpy = spy(strategy);
+
+        PriceListener priceListener = new PriceListenerImpl(tradingStrategySpy);
+        // given priceListener is listening to priceSource
+        PriceSource priceSourceMock = Mockito.mock(PriceSource.class, Mockito.withSettings().invocationListeners(priceSourceInvokationListener));
+        priceSourceMock.addPriceListener(priceListener);
+
+        // when a price event is received
+        priceListener.priceUpdate("IBM", 54.9d);
+
+        // then no trade is executed
+        verify(tradingStrategySpy, only()).listenTransaction("IBM", 55);
+        verify(executionService, only()).buy("IBM", 55.0d,100  );
+    }
+
 }
