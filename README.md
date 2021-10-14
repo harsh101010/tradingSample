@@ -2,6 +2,7 @@
 
 This program implements only BUY order strategy. The TradingStrategy contains a Map collection which stores all BUY or SELL orders at specific price levels and quantity.
 I only added three tests just for the BUY order price events. It is not exhaustively unit tested.
+Please note that the BUY or SELL will only trigger is price is breached the level (i.e. not at 55 but when it goes below for example 54.9)
  
 
 # Developer Programming Exercise
